@@ -3,7 +3,10 @@ const dateFormat = require('../utils/dateFormat');
 
 const reactionSchema = new Schema(
     {
-        reactionId: new mongoose.Types.ObjectId(),
+        reactionId: {
+            type: Schema.Types.ObjectId,
+            default: () => new Types.ObjectId()
+        },
         reactionBody: {
             type: String,
             required: true,
