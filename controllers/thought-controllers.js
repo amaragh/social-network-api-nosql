@@ -47,7 +47,7 @@ const thoughtController = {
             })
             .catch(err => res.json(err));
     },
-    
+
     // update thought by ID
     updateThought({ params, body }, res) {
         Thought.findOneAndUpdate(
@@ -89,6 +89,17 @@ const thoughtController = {
                 }
                 res.json(deletedThought);
             })
+            .catch(err => res.json(err));
+    },
+
+    // delete reaction by ID
+    deleteReaction(params, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.thoughtId },
+            { $pull: { reactions: { reactionId: params.reactionId } } },
+            { new: true }
+        )
+            .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => res.json(err));
     }
 }
